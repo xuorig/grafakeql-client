@@ -1,0 +1,17 @@
+.message {
+  margin-bottom: 20px;
+  height: auto;
+  padding: 10px;
+}
+
+.message--error {
+  border: 1px solid #D8000C;
+  color: #D8000C;
+  background-color: #FFBABA;
+}
+
+.message--success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border: 1px solid #d6e9c6;
+}

@@ -15,7 +15,7 @@ import 'codemirror-graphql/hint';
 import 'codemirror-graphql/lint';
 import 'codemirror-graphql/mode';
 
-import '../../node_modules/graphiql/graphiql.css'
+import '../../../node_modules/graphiql/graphiql.css'
 import './SchemaEditor.css';
 
 class SchemaEditor extends Component {
@@ -30,7 +30,7 @@ class SchemaEditor extends Component {
 
   componentDidMount() {
     this.editor = CodeMirror(ReactDOM.findDOMNode(this), {
-      value: 'type Schema {}',
+      value: 'type Query { name: String }',
       lineNumbers: true,
       tabSize: 2,
       mode: 'graphql',

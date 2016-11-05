@@ -1,0 +1,17 @@
+body, html {
+  font-family: 'Rubik', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.App__title {
+  font-weight: 100;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  color: #222;
+}
+
+

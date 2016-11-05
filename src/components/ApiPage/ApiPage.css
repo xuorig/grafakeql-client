@@ -1,0 +1,9 @@
+.ApiPage__instructions {
+  font-weight: 100;
+  font-size: 20px;
+}
+
+.ApiPage__instructions__verb {
+  color: #e00097;
+  font-weight: bold;
+}

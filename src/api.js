@@ -17,6 +17,14 @@ function commitSchema(schemaDef) {
   });
 }
 
+function query(id, queryString, variables) {
+  return post(`${GRAFAKEQL_ENDPOINT}/${id}/query`, {
+    query: queryString,
+    variables: variables
+  });
+}
+
 export {
-  commitSchema
+  commitSchema,
+  query
 }

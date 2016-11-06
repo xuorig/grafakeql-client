@@ -7,75 +7,91 @@ import { withRouter } from 'react-router';
 
 import './SchemaDefinition.css';
 
+const defaultSchemaString =
+`# Welcome to GrafakeQL!
+#
+# GrafakeQL helps you getting started quickly with a Mock GraphQL API.
+#
+# Type your Schema IDL into this screen.
+# Once you're ready, hit that validate button and create your own GraphQL Endpoint!
+#
+# Have Fun!
+
+type Query {
+  myField: String
+  myIntField: Int
+  myObjectField: MyObject
+}
+
+type MyObject {
+  # Describe fields using comments
+  yolo: String
+}
+`;
+
 class SchemaDefinition extends Component {
   constructor(props) {
     super(props);
 
     // Bind instance methods
     this.onCommitSchema = this.onCommitSchema.bind(this);
-    this.onValidateSchema = this.onValidateSchema.bind(this);
     this.onEditSchema = this.onEditSchema.bind(this);
 
     // State
     this.state = {
-      parsedSchema: null,
-      schemaString: '',
+      schemaString: defaultSchemaString,
       error: null
     };
   }
 
   render() {
-    const { parsedSchema, error } = this.state;
+    const { error } = this.state;
 
     let message;
     let button;
 
-    if (parsedSchema) {
-      message = <Message msg="Schema LGTM! Hit that big button again to create your API." type="success" />
-    } else if (error) {
+    if (error) {
       message = <Message msg={error} type="error" />
-    }
-
-    if (parsedSchema) {
-	  button = (
-        <button className="SchemaDefinition__button" onClick={this.onCommitSchema}>Create API From Schema</button>
-      );
-    } else {
-	  button = (
-        <button className="SchemaDefinition__button" onClick={this.onValidateSchema}>Validate Schema</button>
-      );
     }
 
     return (
       <div>
-        <h1 className="App__title">1. Build your Schema</h1>
+        <h1 className="App__title">Build your GraphQL Schema 🔨</h1>
 
         {message}
 
         <SchemaEditor
           ref={n => { this.schemaEditorComponent = n; }}
           onEdit={this.onEditSchema}
+          schemaString={this.state.schemaString}
         />
 
-        {button}
+        <button className="SchemaDefinition__button" onClick={this.onCommitSchema}>Build API</button>
       </div>
     );
   }
 
-  onValidateSchema() {
+  validateSchema() {
     try {
-	  const parsedSchema = buildSchema(this.state.schemaString);
+	  buildSchema(this.state.schemaString);
+
       this.setState({
-        parsedSchema,
         error: null
       });
+      return true;
     } catch (err) {
       this.setState({ error: err.message });
+      return false;
     }
   }
 
   onCommitSchema() {
-    commitSchema(this.state.schemaString).then((response) => {
+    // Don't Commit Schema if it aint valid
+    if (!this.validateSchema()) {
+      return;
+    }
+
+    commitSchema(this.state.schemaString).then(response => {
       if (response.status === 201) {
         response.json().then(payload => {
           this.props.router.push(`/apis/${payload.id}`);
@@ -89,7 +105,6 @@ class SchemaDefinition extends Component {
   onEditSchema(schemaString) {
     this.setState({
       schemaString,
-      parsedSchema: null,
       error: null
     });
   }

@@ -16,9 +16,8 @@
   height: 800px;
   margin-top: 20px;
   margin-bottom: 20px;
-  background: #fbe5f4;
-  padding: 10px;
   border-radius: 6px;
+  border: 1px solid #e5e5e5;
 }
 
 .ApiPage__or {

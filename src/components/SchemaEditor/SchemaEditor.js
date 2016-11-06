@@ -20,7 +20,8 @@ import './SchemaEditor.css';
 
 class SchemaEditor extends Component {
   static propTypes = {
-    onEdit: PropTypes.func
+    onEdit: PropTypes.func,
+    schemaString: PropTypes.string
   }
 
   constructor(props) {
@@ -43,6 +44,8 @@ class SchemaEditor extends Component {
       },
     });
 
+    this.editor.setValue(this.props.schemaString);
+
 	this.editor.on('change', () => {
       this.props.onEdit(this.editor.getValue());
     });
@@ -52,6 +55,10 @@ class SchemaEditor extends Component {
     return (
       <div className="SchemaEditor"></div>
     );
+  }
+
+  getCurrentValue() {
+    return this.editor && this.editor.getValue();
   }
 }
 

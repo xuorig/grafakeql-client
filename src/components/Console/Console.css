@@ -1,0 +1,7 @@
+body, html, #root, .graphiql-container {
+  height: 100%;
+}
+
+.Console {
+  height: 100%;
+}

@@ -8,6 +8,10 @@ a {
   text-decoration: none;
 }
 
+code {
+  font-family: 'Source Code Pro', monospace;
+}
+
 .App {
   max-width: 800px;
   margin: 0 auto;
@@ -25,7 +29,7 @@ a {
   text-align: center;
 }
 
-code {
-  font-family: 'Source Code Pro', monospace;
+.center {
+  text-align: center;
 }
 

@@ -3,6 +3,10 @@
   font-size: 20px;
 }
 
+.ApiPage__examples {
+  margin-top: 40px;
+}
+
 .ApiPage__instructions__small {
   color: #aaa;
 }

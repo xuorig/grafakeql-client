@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { query } from '../../api';
 import hljs from 'highlight.js';
 import { Link } from 'react-router';
 import { curlExample, jsExample } from './examples';
@@ -33,7 +32,7 @@ class ApiPage extends Component {
           <pre><code className="bash">{curlExample}</code></pre>
           <div className="ApiPage__or"> - or - </div>
 
-          <h3>Javascript</h3>
+          <h3>Javascrip</h3>
           <pre><code className="javascript">{jsExample}</code></pre>
 
           <p className="ApiPage__instructions ApiPage__instructions__small center">

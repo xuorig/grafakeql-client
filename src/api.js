@@ -1,4 +1,4 @@
-const GRAFAKEQL_ENDPOINT = 'http://localhost:3000/apis'
+const GRAFAKEQL_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:3000/apis';
 
 function post(endpoint, body) {
   return fetch(endpoint, {

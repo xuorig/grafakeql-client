@@ -20,7 +20,7 @@ class ApiPage extends Component {
         <p className="ApiPage__instructions ApiPage__instructions__small">You can now use your Custom GraFakeQL Endpoint. Time to give it a go!</p>
 
         <div className="ApiPage__examples">
-          <h3>Explore your API with <Link to={'/graphiql'}>GraphiQL</Link></h3>
+          <h3>Explore your API with <Link to={`/apis/${this.props.params.uuid}/console`}>GraphiQL</Link></h3>
           <p className="ApiPage__instructions ApiPage__instructions__small">
             <Link to={`/apis/${this.props.params.uuid}/console`}>GraphiQL</Link> is a GraphQL API Explorer.
             It allows you to view documentation, try queries, and even autocompletes them!

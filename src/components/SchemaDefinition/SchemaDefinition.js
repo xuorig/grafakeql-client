@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import SchemaEditor from '../SchemaEditor/SchemaEditor';
 import Message from '../Message/Message';
+import Spinner from '../Spinner/Spinner';
+
 import { buildSchema } from 'graphql';
 import { commitSchema } from '../../api';
 import { withRouter } from 'react-router';
@@ -40,18 +42,25 @@ class SchemaDefinition extends Component {
     // State
     this.state = {
       schemaString: defaultSchemaString,
-      error: null
+      error: null,
+      loading: false,
     };
   }
 
   render() {
-    const { error } = this.state;
+    const { error, loading } = this.state;
 
     let message;
     let button;
 
     if (error) {
       message = <Message msg={error} type="error" />
+    }
+
+    if (loading) {
+      button = <Spinner />
+    } else {
+      button = <button className="SchemaDefinition__button" onClick={this.onCommitSchema}>Build API</button>
     }
 
     return (
@@ -66,18 +75,19 @@ class SchemaDefinition extends Component {
           schemaString={this.state.schemaString}
         />
 
-        <button className="SchemaDefinition__button" onClick={this.onCommitSchema}>Build API</button>
+        {button}
       </div>
     );
   }
 
   validateSchema() {
     try {
-	  buildSchema(this.state.schemaString);
+	    buildSchema(this.state.schemaString);
 
       this.setState({
         error: null
       });
+
       return true;
     } catch (err) {
       this.setState({ error: err.message });
@@ -91,13 +101,17 @@ class SchemaDefinition extends Component {
       return;
     }
 
+    this.setState({loading: true});
+
     commitSchema(this.state.schemaString).then(response => {
+      this.setState({loading: false});
+
       if (response.status === 201) {
         response.json().then(payload => {
           this.props.router.push(`/apis/${payload.id}`);
         });
       } else {
-        console.error('Failed to Fetch');
+        this.setState({error: 'Something went wrong... Try again?'})
       }
     });
   }
